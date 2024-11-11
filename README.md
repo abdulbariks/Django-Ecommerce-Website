@@ -13,3 +13,5 @@ Run the Django Project: py manage.py runserver
 makemigrations: py manage.py makemigrations
 
 migrate: py manage.py migrate
+
+createsuperuser: py manage.py createsuperuser

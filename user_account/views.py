@@ -23,7 +23,6 @@ from .mixins import (
 
 
 
-
 @method_decorator(never_cache, name='dispatch')
 class Login(LogoutRequiredMixin, generic.View):
     def get(self, *args, **kwargs):
