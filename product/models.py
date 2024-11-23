@@ -2,8 +2,8 @@ from django.db import models
 
 # Create your models here.
 class Category(models.Model):
-    title = models.CharField(max_length=150, unique=True)
-    slug = models.SlugField(unique=True)
+    title = models.CharField(max_length=250, unique=True)
+    slug = models.SlugField(unique=True, max_length=250)
     featured = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
     
@@ -15,8 +15,8 @@ class Category(models.Model):
     
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
-    title = models.CharField(max_length=150, unique=True)
-    slug = models.SlugField(unique=True)
+    title = models.CharField(max_length=250, unique=True)
+    slug = models.SlugField(unique=True, max_length=250)
     featured = models.BooleanField(default=False)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     thumbnail = models.URLField()

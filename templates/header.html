@@ -4,7 +4,7 @@
   <div class="container-fluid">
     <div class="inner-header">
       <div class="logo">
-        <a href="./index.html"
+        <a href="{% url 'home' %}"
           ><img src="{% static 'img/logo.png'%}" alt=""
         /></a>
       </div>
@@ -26,18 +26,16 @@
       </div>
       <nav class="main-menu mobile-menu">
         <ul>
-          <li><a class="active" href="./index.html">Home</a></li>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="#">Products</a></li>
           <li>
-            <a href="./categories.html">Shop</a>
+            <a href="#">Categories</a>
             <ul class="sub-menu">
-              <li><a href="product-page.html">Product Page</a></li>
-              <li><a href="shopping-cart.html">Shopping Card</a></li>
-              <li><a href="check-out.html">Check out</a></li>
+              {% for category in categories %}
+              <li><a href="product-page.html">{{category.title|title}}</a></li>
+              {% endfor %}
             </ul>
           </li>
-          <li><a href="./product-page.html">About</a></li>
-          <li><a href="./check-out.html">Blog</a></li>
-          <li><a href="./contact.html">Contact</a></li>
         </ul>
       </nav>
     </div>

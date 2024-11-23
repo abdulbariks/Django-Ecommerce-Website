@@ -1,5 +1,8 @@
-{% extends "base.html" %} {% block title %}Home{% endblock title %}
-//blockcontent {% block content %} {% include "slider.html" %} {% load static %}
+{% extends "base.html" %}
+{% load static %} 
+{% block title %}Home{% endblock title %} 
+{% block content %} 
+{% include "slider.html" %}
 <!-- Features Section Begin -->
 <section class="features-section spad">
   <div class="features-ads">
@@ -83,141 +86,81 @@
 </section>
 <!-- Features Section End -->
 
-<!-- Latest Product Begin -->
+<!-- Featured Categories Begin -->
 <section class="latest-products spad">
   <div class="container">
     <div class="product-filter">
       <div class="row">
         <div class="col-lg-12 text-center">
           <div class="section-title">
-            <h2>Latest Products</h2>
+            <h2>Featured Categories</h2>
           </div>
           <ul class="product-controls">
             <li data-filter="*">All</li>
-            <li data-filter=".dresses">Dresses</li>
-            <li data-filter=".bags">Bags</li>
-            <li data-filter=".shoes">Shoes</li>
-            <li data-filter=".accesories">Accesories</li>
+            {% for category in categories%}
+            <li data-filter=".{{category.slug}}">{{category.title|title}}</li>
+            {%endfor%}
           </ul>
         </div>
       </div>
     </div>
     <div class="row" id="product-list">
-      <div class="col-lg-3 col-sm-6 mix all dresses bags">
+      {% for category in categories%}
+      {% for product in category.products.all%}
+      <div class="col-lg-3 col-sm-6 mix {{category.slug}}">
         <div class="single-product-item">
           <figure>
             <a href="#"
-              ><img src="{% static 'img/products/img-1.jpg'%}" alt=""
+              ><img style="height:350px;" src="{{product.thumbnail}}" alt=""
             /></a>
-            <div class="p-status">new</div>
+            <div class="p-status">{{category.title|title}}</div>
           </figure>
           <div class="product-text">
-            <h6>Green Dress with details</h6>
-            <p>$22.90</p>
+            <h6>{{product.title | truncatewords:5}}</h6>
+            <p>{{product.price}}</p>
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-sm-6 mix all dresses bags">
-        <div class="single-product-item">
-          <figure>
-            <a href="#"
-              ><img src="{% static 'img/products/img-2.jpg'%}" alt=""
-            /></a>
-            <div class="p-status sale">sale</div>
-          </figure>
-          <div class="product-text">
-            <h6>Yellow Maxi Dress</h6>
-            <p>$25.90</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-sm-6 mix all shoes accesories">
-        <div class="single-product-item">
-          <figure>
-            <a href="#"
-              ><img src="{% static 'img/products/img-3.jpg'%}" alt=""
-            /></a>
-            <div class="p-status">new</div>
-          </figure>
-          <div class="product-text">
-            <h6>One piece bodysuit</h6>
-            <p>$19.90</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-sm-6 mix all shoes accesories">
-        <div class="single-product-item">
-          <figure>
-            <a href="#"
-              ><img src="{% static 'img/products/img-4.jpg'%}" alt=""
-            /></a>
-            <div class="p-status popular">popular</div>
-          </figure>
-          <div class="product-text">
-            <h6>Blue Dress with details</h6>
-            <p>$35.50</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-sm-6 mix all dresses shoes">
-        <div class="single-product-item">
-          <figure>
-            <a href="#"
-              ><img src="{% static 'img/products/img-5.jpg'%}" alt=""
-            /></a>
-            <div class="p-status">new</div>
-          </figure>
-          <div class="product-text">
-            <h6>Green Dress with details</h6>
-            <p>$22.90</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-sm-6 mix all accesories bags">
-        <div class="single-product-item">
-          <figure>
-            <a href="#"
-              ><img src="{% static 'img/products/img-6.jpg'%}" alt=""
-            /></a>
-            <div class="p-status sale">sale</div>
-          </figure>
-          <div class="product-text">
-            <h6>Yellow Maxi Dress</h6>
-            <p>$25.90</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-sm-6 mix all dresses bags">
-        <div class="single-product-item">
-          <figure>
-            <a href="#"
-              ><img src="{% static 'img/products/img-7.jpg'%}" alt=""
-            /></a>
-          </figure>
-          <div class="product-text">
-            <h6>One piece bodysuit</h6>
-            <p>$19.90</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-sm-6 mix all accesories bags">
-        <div class="single-product-item">
-          <figure>
-            <a href="#"
-              ><img src="{% static 'img/products/img-8.jpg'%}" alt=""
-            /></a>
-            <div class="p-status popular">popular</div>
-          </figure>
-          <div class="product-text">
-            <h6>Blue Dress with details</h6>
-            <p>$35.50</p>
+      {%endfor%}
+      {%endfor%}
+    </div>
+  </div>
+</section>
+<!-- Featured Categories End -->
+
+<!-- Featured Products Begin -->
+<section class="latest-products spad">
+  <div class="container">
+    <div class="product-filter">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <div class="section-title">
+            <h2>Featured Products</h2>
           </div>
         </div>
       </div>
     </div>
+    <div class="row" id="product-list">
+      {% for product in featured_products%}
+      <div class="col-lg-3 col-sm-6 mix">
+        <div class="single-product-item">
+          <figure>
+            <a href="#"
+              ><img style="height:350px;" src="{{product.thumbnail}}" alt=""
+            /></a>
+            {% comment %} <div class="p-status">{{product.category.title|title}}</div> {% endcomment %}
+          </figure>
+          <div class="product-text">
+            <h6>{{product.title}}</h6>
+            <p>{{product.price}}</p>
+          </div>
+        </div>
+      </div>
+      {%endfor%}
+    </div>
   </div>
 </section>
-<!-- Latest Product End -->
+<!-- Featured Products End -->
 
 <!-- Lookbok Section Begin -->
 <section class="lookbok-section">
@@ -274,4 +217,5 @@
   </div>
 </div>
 <!-- Logo Section End -->
-{% include "footer.html" %} {% endblock content %}
+{% include "footer.html" %} 
+{% endblock content %}
