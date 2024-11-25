@@ -19,5 +19,23 @@ class Home(generic.TemplateView):
         )
         return context
     
-class ProductDetails(generic.TemplateView):
+class ProductDetails(generic.DetailView):
+    model = Product
     template_name = 'product/product-details.html'
+    slug_url_kwargs = 'slug'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["related_products"] =self.get_object().related 
+        return context
+    
+
+class CategoryDetails(generic.DetailView):
+    model = Category
+    template_name = 'product/category-details.html'
+    slug_url_kwargs = 'slug'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["products"] =self.get_object().products.all()
+        return context        
