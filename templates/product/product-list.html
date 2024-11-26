@@ -1,0 +1,53 @@
+{% extends "../base.html" %}
+ {% block title %}Product Listing{% endblock title %}
+{% block content %}
+{% load static %}
+
+<!--  Pagenation Section Begin -->
+<section class="page-add">
+  <div class="container">
+    <div class="categories-controls">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="categories-filter">
+            <div class="cf-right">
+              <span>20 Products</span>
+              <a href="#">2</a>
+              <a href="#" class="active"> 4</a>
+              <a href="#">6</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--  Pagenation Section end -->
+
+<!--  Product List Section Begin -->
+<section class="related-product spad">
+    <div class="container">
+      <div class="row">
+        {% for product in object_list %}
+        <div class="col-lg-3 col-sm-6">
+          <div class="single-product-item">
+            <figure>
+              <a href="{% url 'product-details' product.slug %}"
+                ><img style="height:350px" src="{{product.thumbnail}}" alt=""
+              /></a>
+            </figure>
+            <div class="product-text">
+              <a href="{% url 'product-details' product.slug %}"
+              ><h6>{{product.title}}</h6></a>
+              <p>${{product.price}}</p>
+            </div>
+          </div>
+        </div> 
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  <!-- Product List Section End -->
+
+{% include "footer.html" %} 
+{% endblock content %}
