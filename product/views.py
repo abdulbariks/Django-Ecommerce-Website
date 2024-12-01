@@ -7,6 +7,7 @@ from django.core.paginator import(
     InvalidPage,
     Paginator
 )
+from cart.carts import Card
 from .models import(
     Category,
     Product,

@@ -16,9 +16,9 @@
           class="search-trigger"
         />
         <img src="{% static 'img/icons/man.png'%}" alt="" />
-        <a href="#">
+        <a href="{% url 'cart' %}">
           <img src="{% static 'img/icons/bag.png'%}" alt="" />
-          <span>2</span>
+          <span>{{cart|length}}</span>
         </a>
       </div>
       <div class="user-access">
