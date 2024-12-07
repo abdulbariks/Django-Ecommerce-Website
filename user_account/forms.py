@@ -103,6 +103,10 @@ class ChangePasswordForm(forms.Form):
         for field in self.fields:
             self.fields[field].widget.attrs.update({"class": "form-control"})
 
+        self.fields['current_password'].widget.attrs.update({"placeholder": "Enter Your Current Password"})
+        self.fields['new_password1'].widget.attrs.update({"placeholder": "Enter Your New Password"})
+        self.fields['new_password2'].widget.attrs.update({"placeholder": "Confirm Password"})
+
     def clean_current_password(self, *args, **kwargs):
         current_password = self.cleaned_data.get('current_password')
 
