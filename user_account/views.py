@@ -11,11 +11,15 @@ from django.contrib.auth.views import (
     PasswordResetConfirmView
 )
 
+import copy
+from cart.carts import Card
+
 from .forms import (
     UserRegistrationForm,
     ChangePasswordForm,
     SendEmailForm,
-    ResetPasswordConfirmForm
+    ResetPasswordConfirmForm,
+    LoginForm
 )
 from .mixins import (
     LogoutRequiredMixin
@@ -54,7 +58,11 @@ class Login(LogoutRequiredMixin, generic.View):
 
 class Logout(generic.View):
     def get(self, *args, **kwargs):
+        cart = Card(self.request)
+        current_cart = copy.deepcopy(cart.cart)
+        coupon = copy.deepcopy(cart.coupon)
         logout(self.request)
+        cart.restore_after_logout(current_cart, coupon)
         return redirect('login')
 
 
